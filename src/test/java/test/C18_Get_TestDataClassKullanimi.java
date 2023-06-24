@@ -51,7 +51,7 @@ public class C18_Get_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
         // 4 - Assertion
 
         // statusCode 'u direk cagirmak icin getStatusCode() methodu ile
-        // Assertion'da kullanirken statusCode() ile cagiriyoruz
+        // response uzerinden Assertion'da kullanirken statusCode() ile cagiriyoruz
         JsonPath respJP = response.jsonPath();
 
         assertEquals(testDataJsonPlace.basariliStatusCode,response.getStatusCode());

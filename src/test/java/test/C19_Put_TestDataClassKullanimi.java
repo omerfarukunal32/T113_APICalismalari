@@ -65,7 +65,7 @@ public class C19_Put_TestDataClassKullanimi extends JsonPlaceHolderBaseUrl {
 
         assertEquals(testDataJsonPlace.basariliStatusCode,response.getStatusCode());
         assertEquals(testDataJsonPlace.contentType,response.getContentType());
-        assertEquals(testDataJsonPlace.conectionHeaderDegeri,response.getHeader("Connection"));
+        assertEquals(testDataJsonPlace.connectionHeaderDegeri,response.getHeader("Connection"));
 
         assertEquals(expData.get("userId"),respJP.get("userId"));
         assertEquals(expData.get("id"),respJP.get("id"));
