@@ -1,10 +1,17 @@
 package test;
 
 import baseUrl.JsonPlaceHolderBaseUrl;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.junit.Assert;
 import org.junit.Test;
 import testData.TestDataJsonPlace;
 
 import java.util.HashMap;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C22_Put_DeSerialization extends JsonPlaceHolderBaseUrl {
     /*
@@ -27,7 +34,6 @@ public class C22_Put_DeSerialization extends JsonPlaceHolderBaseUrl {
         "userId": 10,
         "id": 70
         }
-
      */
     @Test
     public void put01(){
@@ -38,7 +44,27 @@ public class C22_Put_DeSerialization extends JsonPlaceHolderBaseUrl {
 
         HashMap<String, Object> reqBody = testDataJsonPlace.requestBodyOlusturMAP();
 
+        // 2 - Expected Data hazirla
+        HashMap<String,Object> expData = testDataJsonPlace.requestBodyOlusturMAP();
 
+        // 3 - Response'i kaydet
+
+        Response response = given()
+                    .spec(specJsonPlace)
+                    .contentType(ContentType.JSON)
+                .when()
+                    .body(expData)
+                    .put("/{pp1}/{pp2}");
+        // reponse da Map 'lerle calistigimiz icin Map java objesidir ve toString  methoduna gerek yok
+        response.prettyPrint();
+        // 4 - Assertion
+        HashMap<String,Object> respMap = response.as(HashMap.class);
+
+        assertEquals(expData.get("title"),respMap.get("title"));
+        assertEquals(expData.get("body"),respMap.get("body"));
+        assertEquals(expData.get("userId"),respMap.get("userId"));
+        assertEquals(expData.get("id"),respMap.get("id"));
+        // Map sayilari double olarak gordugu icin TestData class'inda sayi olan kisimlari '10.0' seklinde yazdik
 
     }
 
